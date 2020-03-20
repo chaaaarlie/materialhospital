@@ -1,0 +1,30 @@
+{% extends 'management/base.html' %}
+{% load render_table from django_tables2 %}
+{% load icons %}
+{% block content %}
+
+ <div class="row">
+  <div class="col-md-1 col-xs-1 col-sm-1"></div>
+   <div  class="col-md-10 col-xs-10 col-sm-10">
+    <h3 class="round3" style="text-align:center;">Proposals</h3>
+  </div>
+  <div class="col-md-1 col-xs-1 col-sm-1"></div>
+ </div>
+
+ <div class="row">
+  <div class="col-md-10 col-xs-10 col-sm-10"></div>
+  <div class="col-md-2 col-xs-1 col-sm-1">
+   <br/>
+            <a href="{% url 'proposal' %}">
+              <button type="button" class="btn btn-success">
+                <span>{% icon 'plus' %}</span>
+              </button>
+            </a>
+  </div>
+ </div>
+ <br/>
+
+    {% render_table table 'django_tables2/bootstrap4.html' %}
+
+{% endblock %}
+

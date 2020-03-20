@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <title>{% block title %}{% endblock title %} |  Material Hospital - Management</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {% load static %}
+    {% block extrahead %}
+    {% endblock %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'management/style.css' %}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+</head>
+
+<body>
+<div class="header">
+    <div class="container-fluid p-3 mb-4 bg-dark text-white sticky-top text-center">
+        <h1>Material Hospitalar</h1>
+    </div>
+</div>
+
+ <div class="container">
+    {% block content %}
+    {% endblock %}
+ </div>
+
+ <div class="footer">
+     <div class="container-fluid p-3 mt-3 bg-dark text-white fixed-bottom text-center">
+         <h1>tech4COVID19</h1>
+     </div>
+ </div>
+</body>
+</html>
