@@ -33,5 +33,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.UPLOAD_URL
-                          , document_root=settings.UPLOAD_ROOT)
+    urlpatterns += static(settings.MEDIA_URL
+                          , document_root=settings.MEDIA_ROOT)
