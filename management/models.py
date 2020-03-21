@@ -123,3 +123,7 @@ class ProposalDocuments(models.Model):
 
     def __str__(self):
         return self.proposal.product.title
+
+    class Meta:
+        verbose_name = 'Proposal Document'
+        verbose_name_plural = 'Proposal Documents'
