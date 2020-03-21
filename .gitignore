@@ -1,4 +1,6 @@
-/.idea/
 secrets.json
 __pycache__/
+
+/.idea/
 /static/*
+/uploads/*
