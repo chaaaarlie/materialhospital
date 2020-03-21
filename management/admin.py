@@ -3,9 +3,28 @@ from django.contrib import admin
 
 # Register your models here.
 from django.db.models import Sum, Min
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.utils.html import format_html
 
 from .models import *
+
+
+class OrderAdmin(ModelAdminTotals):
+    list_display = (
+        'product',
+        'proposal',
+        'quantity',
+        'created',
+        'updated',
+        'status',
+    )
+
+    list_editable = ('status',)
+
+    list_filter = ('product', 'product__product_type', 'status')
+
+    list_totals = (('quantity', Sum),)
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -19,6 +38,7 @@ class ProposalDocumentsInline(admin.TabularInline):
 
 
 class ProposalAdmin(ModelAdminTotals):
+    actions = ['order']
     inlines = (ProposalDocumentsInline,)
 
     list_display = (
@@ -46,8 +66,20 @@ class ProposalAdmin(ModelAdminTotals):
 
     image_tag.short_description = 'Image'
 
+    def order(self, request, queryset):
+        if 'apply' in request.POST:
+            for proposal in queryset:
+                quantity = request.POST[str(proposal.id)]
+                Order.objects.create(proposal=proposal, product=proposal.product, quantity=quantity, status='O')
+            self.message_user(request,
+                              "Ordered {} product(s)".format(queryset.count()))
+            return HttpResponseRedirect(request.get_full_path())
+        return render(request, 'admin/order_intermediate.html', context={'orders': queryset})
+    order.short_description = 'Encomendar'
+
 
 admin.site.register(Supplier)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(ProductType)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Proposal, ProposalAdmin)

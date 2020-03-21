@@ -107,6 +107,22 @@ class Proposal(models.Model):
         return self.product.title
 
 
+class Order(models.Model):
+
+    STATUS_CHOICES = (
+        ('P', 'Prospective'),
+        ('O', 'Ordered'),
+        ('A', 'Arrived'),
+        ('C', 'Cancelled'),
+    )
+    product = models.ForeignKey('Product', on_delete=models.PROTECT)
+    proposal = models.ForeignKey('Proposal', on_delete=models.PROTECT)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    quantity = models.IntegerField()
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+
+
 class DocumentType(models.Model):
     file_type = models.CharField(max_length=64
                                  , help_text='Tipo de Documento')
