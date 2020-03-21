@@ -143,4 +143,3 @@ STATIC_URL = '/static/'
 
 UPLOAD_URL = '/uploads/'
 UPLOAD_ROOT = os.path.join(BASE_DIR, 'uploads')
-
