@@ -42,7 +42,7 @@ class ProductType(models.Model):
 class Product(models.Model):
 
     product_type = models.ForeignKey(ProductType
-                                     , on_delete=models.DO_NOTHING
+                                     , on_delete=models.SET_NULL
                                      , blank=True
                                      , default=None
                                      , null=True)
@@ -72,12 +72,12 @@ class Proposal(models.Model):
 
     supplier = models.ForeignKey(Supplier
                                  , help_text="Nome do Fornecedor"
-                                 , on_delete=models.DO_NOTHING
+                                 , on_delete=models.SET_NULL
                                  , blank=True
                                  , default=None
                                  , null=True)
 
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL
                                 , blank=True
                                 , default=None
                                 , null=True)
@@ -122,7 +122,7 @@ class ProposalDocuments(models.Model):
                                  , on_delete=models.CASCADE)
 
     file_type = models.ForeignKey(DocumentType
-                                  , on_delete=models.DO_NOTHING
+                                  , on_delete=models.SET_NULL
                                   , null=True
                                   , blank=True
                                   , default=None)
