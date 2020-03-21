@@ -33,10 +33,10 @@ class ProductType(models.Model):
 
     product_type = models.CharField(max_length=32, help_text="Tipo de Produto", blank=True, default=None)
 
-    designation = models.CharField(max_length=128, help_text="Designação do Produto")
+    designation = models.CharField(max_length=128, help_text="Designação do Produto", blank=True,)
 
     def __str__(self):
-        return self.type
+        return self.product_type
 
 
 class Product(models.Model):
