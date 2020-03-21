@@ -27,6 +27,7 @@ class ProposalAdmin(ModelAdminTotals):
         'supplier',
         'availability',
         'min_order_quantity',
+        'unit_price',
         'payment_terms',
         'comments',
         'ce_certified',
