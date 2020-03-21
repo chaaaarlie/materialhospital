@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'management',
-    'widget_tweaks',
     'django_countries',
     'django_tables2',
     'django_filters',
