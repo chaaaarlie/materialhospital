@@ -44,7 +44,8 @@ class Product(models.Model):
     product_type = models.ForeignKey(ProductType
                                      , on_delete=models.DO_NOTHING
                                      , blank=True
-                                     , default=None)
+                                     , default=None
+                                     , null=True)
 
     title = models.CharField(max_length=64
                              , help_text="Nome do Produto")
@@ -73,11 +74,13 @@ class Proposal(models.Model):
                                  , help_text="Nome do Fornecedor"
                                  , on_delete=models.DO_NOTHING
                                  , blank=True
-                                 , default=None)
+                                 , default=None
+                                 , null=True)
 
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING
                                 , blank=True
-                                , default=None)
+                                , default=None
+                                , null=True)
 
     availability = models.IntegerField(help_text="Inserir valor total sem abreviatura")
 
@@ -116,10 +119,13 @@ class DocumentType(models.Model):
 
 class ProposalDocuments(models.Model):
     proposal = models.ForeignKey(Proposal
-                                 , on_delete=models.DO_NOTHING)
+                                 , on_delete=models.CASCADE)
 
     file_type = models.ForeignKey(DocumentType
-                                  , on_delete=models.DO_NOTHING)
+                                  , on_delete=models.DO_NOTHING
+                                  , null=True
+                                  , blank=True
+                                  , default=None)
 
     file = models.FileField(upload_to='files/')
 
