@@ -1,2 +1,4 @@
 /.idea/
 secrets.json
+/venv
+db.sqlite3
