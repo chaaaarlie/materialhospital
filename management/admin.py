@@ -1,10 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Supplier, Proposal, ProductType, Product,  ProposalDocuments, DocumentType
+from .models import *
 
 admin.site.register(Supplier)
 admin.site.register(ProductType)
+admin.site.register(ProductSubType)
 admin.site.register(Product)
 admin.site.register(Proposal)
 admin.site.register(ProposalDocuments)
