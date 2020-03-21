@@ -115,11 +115,13 @@ class DocumentType(models.Model):
 
 
 class ProposalDocuments(models.Model):
-    proposal = models.ForeignKey(Proposal, on_delete=models.DO_NOTHING)
+    proposal = models.ForeignKey(Proposal
+                                 , on_delete=models.DO_NOTHING)
 
-    file_type = models.ForeignKey(DocumentType, on_delete=models.DO_NOTHING)
+    file_type = models.ForeignKey(DocumentType
+                                  , on_delete=models.DO_NOTHING)
 
-    file = models.FileField(upload_to='./uploads/files/')
+    file = models.FileField(upload_to='files/')
 
     def __str__(self):
         return self.proposal.product.title
