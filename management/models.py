@@ -88,7 +88,7 @@ class Proposal(models.Model):
                                      , max_digits=10
                                      , blank=True)
 
-    picture = models.ImageField(upload_to='./uploads/images/')
+    picture = models.ImageField(upload_to='images/')
 
     payment_terms = models.CharField(max_length=128
                                      , help_text='Termos de pagamento'
