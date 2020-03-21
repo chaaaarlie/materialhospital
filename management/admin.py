@@ -34,6 +34,8 @@ class ProposalAdmin(ModelAdminTotals):
         'fda_certified',
     )
 
+    list_editable = ('availability', 'unit_price')
+
     list_totals = (('availability', Sum), ('min_order_quantity', Min))
 
     list_filter = ('proposal_type', 'supplier', 'product__product_type')
