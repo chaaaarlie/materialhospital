@@ -1,6 +1,8 @@
+from admin_totals.admin import ModelAdminTotals
 from django.contrib import admin
 
 # Register your models here.
+from django.db.models import Sum, Min
 from django.utils.html import format_html
 
 from .models import *
@@ -16,7 +18,7 @@ class ProposalDocumentsInline(admin.TabularInline):
     model = ProposalDocuments
 
 
-class ProposalAdmin(admin.ModelAdmin):
+class ProposalAdmin(ModelAdminTotals):
     inlines = (ProposalDocumentsInline,)
 
     list_display = (
@@ -30,6 +32,8 @@ class ProposalAdmin(admin.ModelAdmin):
         'ce_certified',
         'fda_certified',
     )
+
+    list_totals = (('availability', Sum), ('min_order_quantity', Min))
 
     list_filter = ('proposal_type', 'supplier', 'product__product_type')
 

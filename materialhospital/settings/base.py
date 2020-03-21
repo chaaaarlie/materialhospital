@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'django_filters',
     'bootstrap4',
     'crispy_forms',
-    'django_icons'
+    'django_icons',
+    'admin_totals',
 ]
 
 MIDDLEWARE = [
