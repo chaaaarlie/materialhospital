@@ -23,6 +23,7 @@ class ProposalAdmin(ModelAdminTotals):
 
     list_display = (
         'product',
+        'proposal_type',
         'image_tag',
         'supplier',
         'availability',
