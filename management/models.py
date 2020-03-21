@@ -26,24 +26,14 @@ class Supplier(models.Model):
 
 
 class ProductType(models.Model):
-    type = models.CharField(max_length=32
-                            , help_text="Tipo de Produto")
-    designation = models.CharField(max_length=128
-                                   , help_text="Designação do Produto")
-
-    def __str__(self):
-        return self.type
-
-
-class ProductSubType(models.Model):
-    product_type = models.ForeignKey(ProductType
-                                     , on_delete=models.DO_NOTHING)
 
     type = models.CharField(max_length=32
-                            , help_text="Tipo de Produto")
+                            , choices=[('E', 'Equipamento Protecao Individual'), ('V', 'Ventilador'), ('T', 'Kit Teste')]
+                            , help_text='Tipo de Produto', blank=True, default=None)
 
-    designation = models.CharField(max_length=128
-                                   , help_text="Designação do Produto")
+    product_type = models.CharField(max_length=32, help_text="Tipo de Produto", blank=True, default=None)
+
+    designation = models.CharField(max_length=128, help_text="Designação do Produto")
 
     def __str__(self):
         return self.type
@@ -51,9 +41,10 @@ class ProductSubType(models.Model):
 
 class Product(models.Model):
 
-    product_subtype = models.ForeignKey(ProductSubType
-                                        , on_delete=models.DO_NOTHING
-                                        )
+    product_type = models.ForeignKey(ProductType
+                                     , on_delete=models.DO_NOTHING
+                                     , blank=True
+                                     , default=None)
 
     title = models.CharField(max_length=64
                              , help_text="Nome do Produto")
@@ -75,7 +66,8 @@ class Proposal(models.Model):
     proposal_type = models.CharField(max_length=24
                                      , choices=[('D', 'Doação'), ('C', 'Comercial')]
                                      , help_text="Tipo de Proposta"
-                                     , blank=True)
+                                     , blank=True
+                                     , default=None)
 
     supplier = models.ForeignKey(Supplier
                                  , help_text="Nome do Fornecedor"
@@ -83,7 +75,9 @@ class Proposal(models.Model):
                                  , blank=True
                                  , default=None)
 
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING
+                                , blank=True
+                                , default=None)
 
     availability = models.IntegerField(help_text="Inserir valor total sem abreviatura")
 
