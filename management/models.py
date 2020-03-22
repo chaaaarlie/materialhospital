@@ -122,6 +122,9 @@ class Order(models.Model):
     quantity = models.IntegerField()
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
 
+    def __str__(self):
+        return '{} {}, {}'.format(self.quantity, self.product, self.proposal)
+
 
 class DocumentType(models.Model):
     file_type = models.CharField(max_length=64
