@@ -23,7 +23,7 @@ class OrderAdmin(ModelAdminTotals):
 
     list_editable = ('status',)
 
-    list_filter = ('product', 'product__product_type', 'status')
+    list_filter = ('product__product_type', 'product', 'status', 'proposal__supplier')
 
     list_totals = (('quantity', Sum),)
 
