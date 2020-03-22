@@ -60,7 +60,7 @@ class ProposalAdmin(ModelAdminTotals):
 
     list_totals = (('availability', Sum), ('min_order_quantity', Min))
 
-    list_filter = ('proposal_type', 'supplier', 'product__product_type')
+    list_filter = ('proposal_type', 'product__product_type', 'product', 'supplier')
 
     def image_tag(self, obj):
         return format_html('<img src="{}" width=100 height=100/>'.format(obj.picture.url))
