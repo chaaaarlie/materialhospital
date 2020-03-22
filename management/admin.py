@@ -6,6 +6,7 @@ from django.db.models import Sum, Min
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.html import format_html
+from django_countries.filters import CountryFilter
 
 from .models import *
 
@@ -78,7 +79,12 @@ class ProposalAdmin(ModelAdminTotals):
     order.short_description = 'Encomendar'
 
 
-admin.site.register(Supplier)
+class SupplierAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'phone', 'lead', 'origin']
+    list_filter = [('origin', CountryFilter)]
+
+
+admin.site.register(Supplier, SupplierAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(ProductType)
 admin.site.register(Product, ProductAdmin)
