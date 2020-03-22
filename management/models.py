@@ -8,18 +8,18 @@ class Supplier(models.Model):
 
     email = models.EmailField(max_length=254
                               , help_text="Email do fornecedor"
-                              , blank=True)
+                              , blank=True, null=True)
 
     phone = models.CharField(max_length=32
                               , help_text="Telefone do Fornecedor"
-                              , blank=True)
+                              , blank=True, null=True)
 
     lead = models.CharField(max_length=32
                             , help_text="Identificação do lead"
-                            , blank=True)
+                            , blank=True, null=True)
 
     origin = CountryField(blank_label='(selecionar pais)'
-                          , blank=True)
+                          , blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -29,11 +29,11 @@ class ProductType(models.Model):
 
     type = models.CharField(max_length=32
                             , choices=[('E', 'Equipamento Protecao Individual'), ('V', 'Ventilador'), ('T', 'Kit Teste')]
-                            , help_text='Tipo de Produto', blank=True, default=None)
+                            , help_text='Tipo de Produto', blank=True, default=None, null=True)
 
-    product_type = models.CharField(max_length=32, help_text="Tipo de Produto", blank=True, default=None)
+    product_type = models.CharField(max_length=32, help_text="Tipo de Produto", blank=True, null=True, default=None)
 
-    designation = models.CharField(max_length=128, help_text="Designação do Produto", blank=True,)
+    designation = models.CharField(max_length=128, help_text="Designação do Produto", blank=True, null=True)
 
     def __str__(self):
         return self.product_type
@@ -52,11 +52,11 @@ class Product(models.Model):
 
     model = models.CharField(max_length=64
                              , help_text="Modelo do Produto"
-                             , blank=True)
+                             , blank=True, null=True)
 
     description = models.CharField(max_length=128
                                    , help_text="Descrição do produto"
-                                   , blank=True)
+                                   , blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -67,7 +67,7 @@ class Proposal(models.Model):
     proposal_type = models.CharField(max_length=24
                                      , choices=[('D', 'Doação'), ('C', 'Comercial')]
                                      , help_text="Tipo de Proposta"
-                                     , blank=True
+                                     , blank=True, null=True
                                      , default=None)
 
     supplier = models.ForeignKey(Supplier
@@ -77,34 +77,31 @@ class Proposal(models.Model):
                                  , default=None
                                  , null=True)
 
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL
-                                , blank=True
-                                , default=None
-                                , null=True)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, default=None)
 
     availability = models.IntegerField(help_text="Inserir valor total sem abreviatura")
 
     min_order_quantity = models.IntegerField(help_text="Inserir valor total sem abreviatura"
-                                             , blank=True)
+                                             , blank=True, null=True)
 
     unit_price = models.DecimalField(decimal_places=2
                                      , max_digits=10
-                                     , blank=True)
+                                     , blank=True, null=True)
 
     picture = models.ImageField(upload_to='images/')
 
     payment_terms = models.CharField(max_length=128
                                      , help_text='Termos de pagamento'
-                                     , blank=True)
+                                     , blank=True, null=True)
 
-    comments = models.TextField(max_length=1024, help_text="Notas/ Comentários", blank=True)
+    comments = models.TextField(max_length=1024, help_text="Notas/ Comentários", blank=True, null=True)
 
     ce_certified = models.NullBooleanField()
 
     fda_certified = models.NullBooleanField()
 
     def __str__(self):
-        return self.product.title
+        return '{} from {}'.format(self.product, self.supplier)
 
 
 class Order(models.Model):
@@ -149,7 +146,7 @@ class ProposalDocuments(models.Model):
     file = models.FileField(upload_to='files/')
 
     def __str__(self):
-        return self.proposal.product.title
+        return '{} - {}'.format(self.file_type, self.proposal)
 
     class Meta:
         verbose_name = 'Proposal Document'
